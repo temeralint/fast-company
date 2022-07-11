@@ -5,11 +5,16 @@ import Bookmark from "./bookmark";
 const User = ({users, handleUserDelete, handleBookmarkClick}) => {
     return (
         <>
-            <TableHead/>
-            <TableBody users={users} 
-                       handleUserDelete={handleUserDelete} 
-                       handleBookmarkClick={handleBookmarkClick}
-            />
+            {
+                users.length === 0 ? null :
+                    <table className="table">
+                        <TableHead/>
+                        <TableBody users={users} 
+                                handleUserDelete={handleUserDelete} 
+                                handleBookmarkClick={handleBookmarkClick}
+                        />
+                    </table>
+            }
         </>
     )
 }
