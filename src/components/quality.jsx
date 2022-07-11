@@ -1,4 +1,5 @@
 import React from "react";
+import PropTypes from 'prop-types';
 
 const Quality = ({user}) => {
     return (
@@ -14,6 +15,10 @@ const Quality = ({user}) => {
             }
         </>
     )
+}
+
+Quality.propTypes = {
+    user: PropTypes.object
 }
 
 export default Quality;

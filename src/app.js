@@ -3,11 +3,14 @@ import SearchStatus from "./components/searchStatus";
 import User from "./components/user";
 import API from "./api";
 import Pagination from "./components/pagination";
+import { paginate } from "./utils/paginate";
 
 const App = () => {
     const [users, setUsers] = useState(API.users.fetchAll())
     const [currentPage, setCurrentPage] = useState(1)
     const pageSize = 4
+
+    const userCrop = paginate(users, currentPage, pageSize)
 
     const handleUserDelete = (id) => {
         setUsers(users => users.filter(user => user._id !== id))
@@ -30,7 +33,7 @@ const App = () => {
     return (
         <>
             <SearchStatus users={users}/>
-            <User users={users.slice(0, pageSize)} 
+            <User users={userCrop} 
                     handleUserDelete={handleUserDelete} 
                     handleBookmarkClick={handleBookmarkClick}
             />

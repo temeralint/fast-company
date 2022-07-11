@@ -1,4 +1,5 @@
 import React from "react";
+import PropTypes from 'prop-types';
 import Quality from "./quality";
 import Bookmark from "./bookmark";
 
@@ -68,6 +69,10 @@ const TableBody = ({users, handleUserDelete, handleBookmarkClick}) => {
     )
 }
 
-
+User.propTypes = {
+    users: PropTypes.array,
+    handleUserDelete: PropTypes.func,
+    handleBookmarkClick: PropTypes.func
+}
 
 export default User;
