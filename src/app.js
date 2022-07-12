@@ -10,12 +10,12 @@ import GroupList from "./components/groupList";
 const App = () => {
     const [users, setUsers] = useState(API.users.fetchAll())
     const [currentPage, setCurrentPage] = useState(1)
-    const [professions, setProfessions] = useState(API.professionApi.fetchAll())
+    const [professions, setProfessions] = useState({})
     const pageSize = 4
 
     useEffect(() => {
-        console.log('render')
-    }, []);
+        API.professionApi.fetchAll().then(res => setProfessions(res))
+    }, [])
 
     const userCrop = paginate(users, currentPage, pageSize)
 
@@ -37,14 +37,14 @@ const App = () => {
         setCurrentPage(pageNumber)
     }
 
-    const handleItemSelect = (params) => {
+    const handleProfessionSelect = (params) => {
         console.log(params)
     }
 
     return (
         <>
             <SearchStatus users={users}/>
-            <GroupList items={professions} onItemSelect={handleItemSelect}/>
+            <GroupList items={professions} onItemSelect={handleProfessionSelect}/>
             <User users={userCrop} 
                     handleUserDelete={handleUserDelete} 
                     handleBookmarkClick={handleBookmarkClick}

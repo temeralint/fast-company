@@ -11,7 +11,7 @@ const fetchAll = () => {
     return new Promise(resolve => {
         setTimeout(() => {
             resolve(professions)
-        }, 2500)
+        }, 1500)
     })
 }
 
