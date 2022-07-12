@@ -1,14 +1,21 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import SearchStatus from "./components/searchStatus";
 import User from "./components/user";
 import API from "./api";
 import Pagination from "./components/pagination";
 import { paginate } from "./utils/paginate";
+import GroupList from "./components/groupList";
+
 
 const App = () => {
     const [users, setUsers] = useState(API.users.fetchAll())
     const [currentPage, setCurrentPage] = useState(1)
+    const [professions, setProfessions] = useState(API.professionApi.fetchAll())
     const pageSize = 4
+
+    useEffect(() => {
+        console.log('render')
+    }, []);
 
     const userCrop = paginate(users, currentPage, pageSize)
 
@@ -30,9 +37,14 @@ const App = () => {
         setCurrentPage(pageNumber)
     }
 
+    const handleItemSelect = (params) => {
+        console.log(params)
+    }
+
     return (
         <>
             <SearchStatus users={users}/>
+            <GroupList items={professions} onItemSelect={handleItemSelect}/>
             <User users={userCrop} 
                     handleUserDelete={handleUserDelete} 
                     handleBookmarkClick={handleBookmarkClick}
