@@ -6,18 +6,27 @@ import Pagination from "./components/pagination";
 import { paginate } from "./utils/paginate";
 import GroupList from "./components/groupList";
 
-
 const App = () => {
     const [users, setUsers] = useState(API.users.fetchAll())
     const [currentPage, setCurrentPage] = useState(1)
     const [professions, setProfessions] = useState({})
+    const [selectedProfession, setSelectedProfession] = useState()
     const pageSize = 4
 
     useEffect(() => {
         API.professionApi.fetchAll().then(res => setProfessions(res))
     }, [])
 
-    const userCrop = paginate(users, currentPage, pageSize)
+    const filterItems = (items) => {
+        if (selectedProfession) {
+            return items.filter(item => item.profession._id == selectedProfession)
+        } 
+        return items
+    }
+
+    const filteredItems = filterItems(users)
+
+    const userCrop = paginate(filterItems(users), currentPage, pageSize)
 
     const handleUserDelete = (id) => {
         setUsers(users => users.filter(user => user._id !== id))
@@ -37,19 +46,27 @@ const App = () => {
         setCurrentPage(pageNumber)
     }
 
-    const handleProfessionSelect = (params) => {
-        console.log(params)
+    const handleProfessionSelect = (id) => {
+        setSelectedProfession(id)
+    }
+
+    const handleReset = () => {
+        setSelectedProfession()
     }
 
     return (
         <>
-            <SearchStatus users={users}/>
-            <GroupList items={professions} onItemSelect={handleProfessionSelect}/>
-            <User users={userCrop} 
-                    handleUserDelete={handleUserDelete} 
-                    handleBookmarkClick={handleBookmarkClick}
+            <SearchStatus users={filteredItems}/>
+            <GroupList items={professions} 
+                       selectedProfession={selectedProfession} 
+                       onItemSelect={handleProfessionSelect}
+                       onReset={handleReset}
             />
-            <Pagination itemsCount={users.length}
+            <User users={userCrop} 
+                  handleUserDelete={handleUserDelete} 
+                  handleBookmarkClick={handleBookmarkClick}
+            />
+            <Pagination itemsCount={filteredItems.length}
                         pageSize={pageSize} 
                         currentPage={currentPage}
                         onPageChange={handlePageChange}

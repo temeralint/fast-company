@@ -4,7 +4,7 @@ export const professions = {
     physics: { _id: "67rdca3eeb7f6fgeed471814", name: "Физик" },
     engineer: { _id: "67rdca3eeb7f6fgeed471822", name: "Инженер" },
     actor: { _id: "67rdca3eeb7f6fgeed471824", name: "Актер" },
-    cook: { _id: "67rdca3eeb7f6fgeed471829", name: "Повар" }
+    cook: { _id: "67rdca3eeb7f6fgeed471829", name: "Повар" },
 }
 
 const fetchAll = () => {

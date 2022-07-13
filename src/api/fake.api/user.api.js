@@ -44,7 +44,7 @@ const users = [
         qualities: [qualities.uncertain],
         completedMeetings: 148,
         rate: 3.5,
-        bookmark: false
+        bookmark: true
     },
     {
         _id: "67rdca3eeb7f6fgeed471819",
@@ -89,7 +89,7 @@ const users = [
         qualities: [qualities.strange, qualities.uncertain],
         completedMeetings: 17,
         rate: 4.5,
-        bookmark: false
+        bookmark: true
     },
     {
         _id: "67rdca3eeb7f6fgeed471824",
@@ -98,7 +98,7 @@ const users = [
         qualities: [qualities.handsome, qualities.buller],
         completedMeetings: 17,
         rate: 4.5,
-        bookmark: false
+        bookmark: true
     },
     {
         _id: "67rdca3eeb7f6fgeed47181f",

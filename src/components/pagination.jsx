@@ -5,7 +5,6 @@ import PropTypes from 'prop-types'
 const Pagination = ({itemsCount, pageSize, currentPage, onPageChange}) => {
     const pageCount = Math.ceil(itemsCount / pageSize)
     const pages = _.range(1, pageCount + 1)
-
     return (
         <nav>
             <ul className="pagination">
