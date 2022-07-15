@@ -1,4 +1,5 @@
 import React, { useState, useEffect } from "react";
+import _ from 'lodash';
 import SearchStatus from './searchStatus';
 import UserTable from "./userTable";
 import API from "../api";
@@ -11,6 +12,7 @@ const User = () => {
     const [currentPage, setCurrentPage] = useState(1)
     const [professions, setProfessions] = useState({})
     const [selectedProfession, setSelectedProfession] = useState()
+    const [sortBy, setSortBy] = useState({iter: 'name', order: 'asc'})
     const pageSize = 4
 
     useEffect(() => {
@@ -25,12 +27,13 @@ const User = () => {
     }
 
     const filteredItems = filterItems(users)
+    const sortedUsers = _.orderBy(filteredItems, [sortBy.iter], [sortBy.order])
 
     useEffect(() => {
         setCurrentPage(1)
     }, [filteredItems])
 
-    const userCrop = paginate(filterItems(users), currentPage, pageSize)
+    const userCrop = paginate(sortedUsers, currentPage, pageSize)
 
     const handleUserDelete = (id) => {
         setUsers(users => users.filter(user => user._id !== id))
@@ -46,11 +49,11 @@ const User = () => {
         }))
     }
 
-    const handlePageChange = (pageNumber) => {
+    const handlePageChange = pageNumber => {
         setCurrentPage(pageNumber)
     }
 
-    const handleProfessionSelect = (id) => {
+    const handleProfessionSelect = id => {
         setSelectedProfession(id)
     }
 
@@ -58,8 +61,14 @@ const User = () => {
         setSelectedProfession()
     }
 
-    const handleSort = value => {
-        console.log(value)
+    const handleSort = sortParameter => {
+        if (sortBy.iter === sortParameter) {
+            setSortBy((prevState) => (
+                {...prevState, order: prevState.order === 'asc' ? 'desc' : 'asc'}
+            ))
+        } else {
+            setSortBy({iter: sortParameter, order: 'asc'})
+        }
     }
 
     return (

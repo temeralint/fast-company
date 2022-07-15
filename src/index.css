@@ -16,6 +16,6 @@ i:hover {
   cursor: pointer;
 }
 
-.page-item:hover, .list-group-item {
+.page-item:hover, .list-group-item, th {
   cursor: pointer;
 }

@@ -21,13 +21,26 @@ const UserTable = ({users, onUserDelete, onBookmarkClick, onSort}) => {
 }
 
 const TableHead = ({onSort}) => {
-    const tableHeadArray = ['Имя', 'Качества', 'Профессия', 'Встретился, раз', 'Оценка', 'Избранное', '']
+    const tableHead = [
+        {name: 'name', value: 'Имя'},
+        {name: 'qualities', value: 'Качества'},
+        {name: 'profession.name', value: 'Профессия'},
+        {name: 'completedMeetings', value: 'Встретился, раз'},
+        {name: 'rate', value: 'Оценка'},
+        {name: 'bookmark', value: 'Избранное'},
+    ]
+
     return (
         <thead>
             <tr>
                 {
-                    tableHeadArray.map((item, index) => {
-                        return <th scope="col" key={index} onClick={() => onSort(item)}>{item}</th>
+                    tableHead.map(item => {
+                        return <th scope="col" 
+                                   key={item.name} 
+                                   onClick={() => onSort(item.name)}
+                                >
+                                    {item.value}
+                                </th>
                     })
                 }
             </tr>
