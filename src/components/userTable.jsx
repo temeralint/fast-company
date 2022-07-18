@@ -1,15 +1,27 @@
 import React from "react";
 import PropTypes from 'prop-types';
-import Quality from "./quality";
-import Bookmark from "./bookmark";
+import TableHeader from "./tableHeader";
+import TableBody from "./tableBody";
 
-const UserTable = ({users, onUserDelete, onBookmarkClick, onSort}) => {
+const UserTable = ({users, sortState, onUserDelete, onBookmarkClick, onSort}) => {
+    const tableHeadItems = [
+        {iter: 'name', name: 'Имя'},
+        {name: 'Качества'},
+        {iter: 'profession.name', name: 'Профессия'},
+        {iter: 'completedMeetings', name: 'Встретился, раз'},
+        {iter: 'rate', name: 'Оценка'},
+        {iter: 'bookmark', name: 'Избранное'},
+    ]
+
     return (
         <>
             {
                 users.length === 0 ? null :
                     <table className="table">
-                        <TableHead onSort={onSort}/>
+                        <TableHeader onSort={onSort} 
+                                     thItems={tableHeadItems}
+                                     sortState={sortState}
+                        />
                         <TableBody users={users} 
                                 onUserDelete={onUserDelete} 
                                 onBookmarkClick={onBookmarkClick}
@@ -20,72 +32,11 @@ const UserTable = ({users, onUserDelete, onBookmarkClick, onSort}) => {
     )
 }
 
-const TableHead = ({onSort}) => {
-    const tableHead = [
-        {name: 'name', value: 'Имя'},
-        {name: 'qualities', value: 'Качества'},
-        {name: 'profession.name', value: 'Профессия'},
-        {name: 'completedMeetings', value: 'Встретился, раз'},
-        {name: 'rate', value: 'Оценка'},
-        {name: 'bookmark', value: 'Избранное'},
-    ]
-
-    return (
-        <thead>
-            <tr>
-                {
-                    tableHead.map(item => {
-                        return <th scope="col" 
-                                   key={item.name} 
-                                   onClick={() => onSort(item.name)}
-                                >
-                                    {item.value}
-                                </th>
-                    })
-                }
-            </tr>
-        </thead>
-    )
-}
-
-const TableBody = ({users, onUserDelete, onBookmarkClick}) => {
-    return (
-        <tbody>
-                {
-                    users.map(user => {
-                        return (
-                            <tr key={user._id}>
-                                <td scope="row">{user.name}</td>
-                                <td>{<Quality user={user}/>}</td>
-                                <td>{user.profession.name}</td>
-                                <td>{user.completedMeetings}</td>
-                                <td>{user.rate}/5</td>
-                                <td>
-                                    {<Bookmark id={user._id} 
-                                               bookmark={user.bookmark} 
-                                               onBookmarkClick={onBookmarkClick}/>
-                                    }
-                                </td>
-                                <td>
-                                    <button 
-                                        className="btn btn-danger"
-                                        onClick={() => onUserDelete(user._id)}
-                                    >
-                                        delete
-                                    </button>
-                                </td>
-                            </tr>
-                        )
-                    })
-                }
-            </tbody>
-    )
-}
-
 UserTable.propTypes = {
-    users: PropTypes.array,
-    onUserDelete: PropTypes.func,
-    onBookmarkClick: PropTypes.func
+    users: PropTypes.array.isRequired,
+    onUserDelete: PropTypes.func.isRequired,
+    onBookmarkClick: PropTypes.func.isRequired,
+    onSort: PropTypes.func.isRequired
 }
 
 export default UserTable;

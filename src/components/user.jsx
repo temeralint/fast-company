@@ -86,6 +86,7 @@ const User = () => {
                     />
                 </div>
                 <UserTable users={userCrop} 
+                    sortState={sortBy}
                     onUserDelete={handleUserDelete} 
                     onBookmarkClick={handleBookmarkClick}
                     onSort={handleSort}
