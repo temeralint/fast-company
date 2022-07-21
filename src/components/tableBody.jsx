@@ -1,4 +1,5 @@
 import PropTypes from 'prop-types';
+import { Link } from 'react-router-dom';
 import Quality from "./quality";
 import Bookmark from "./bookmark";
 
@@ -9,7 +10,7 @@ const TableBody = ({users, onUserDelete, onBookmarkClick}) => {
                     users.map(user => {
                         return (
                             <tr key={user.name}>
-                                <td scope="row">{user.name}</td>
+                                <td scope="row"><Link to={`/users/${user._id}`}>{user.name}</Link></td>
                                 <td>{<Quality user={user}/>}</td>
                                 <td>{user.profession.name}</td>
                                 <td>{user.completedMeetings}</td>

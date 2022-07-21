@@ -1,4 +1,3 @@
-import { Route } from "react-router-dom";
 import { useState, useEffect } from "react";
 import _ from 'lodash';
 import SearchStatus from './searchStatus';
@@ -7,7 +6,6 @@ import API from "../api";
 import Pagination from "./pagination";
 import { paginate } from "../utils/paginate";
 import GroupList from "./groupList";
-import User from "./user";
 
 const Users = () => {
     const [users, setUsers] = useState(API.users.fetchAll())
@@ -75,7 +73,6 @@ const Users = () => {
 
     return (
         <>
-            <Route path='/:id' component={User}/>
             <div className="m-2">
                 <SearchStatus users={filteredItems}/>
             </div>
