@@ -1,9 +1,9 @@
 import { BrowserRouter, Switch, Route } from 'react-router-dom';
-import Users from './components/users';
+import Users from './layouts/users';
 import User from './components/user';
 import Navigation from './components/navigation';
-import Login from './components/login';
-import MainPage from './components/mainPage';
+import Login from './layouts/login';
+import MainPage from './layouts/mainPage';
 
 const App = () => {
     return (
