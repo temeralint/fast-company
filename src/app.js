@@ -1,4 +1,4 @@
-import { BrowserRouter, Switch, Route } from 'react-router-dom';
+import { BrowserRouter, Routes, Route } from 'react-router-dom';
 import Users from './layouts/users';
 import User from './components/user';
 import Navigation from './components/navigation';
@@ -10,12 +10,12 @@ const App = () => {
         <BrowserRouter>
             <Navigation/>
 
-            <Switch>
-                <Route path='/login' component={Login}/>
-                <Route path='/users' exact component={Users}/>
-                <Route path='/users/:id?' component={User}/>
-                <Route path='/' component={MainPage}/>
-            </Switch>
+            <Routes>
+                <Route path='login' element={<Login/>}/>
+                <Route path='users' element={<Users/>}/>
+                <Route path='users/:id' element={<User/>}/>
+                <Route path='/' element={<MainPage/>}/>
+            </Routes>
         </BrowserRouter>
     )
 }
